@@ -33,10 +33,6 @@ export default {
 					DEFAULT: '#0a192f',
 					light: '#112240',
 				},
-				accent: {
-					DEFAULT: '#64ffda',
-					light: '#64ffda33',
-				},
 				slate: {
 					DEFAULT: '#8892b0',
 					light: '#ccd6f6',
@@ -59,7 +55,8 @@ export default {
 					foreground: 'hsl(var(--muted-foreground))'
 				},
 				accent: {
-					DEFAULT: 'hsl(var(--accent))',
+					DEFAULT: '#64ffda',
+					light: '#64ffda33',
 					foreground: 'hsl(var(--accent-foreground))'
 				},
 				popover: {
