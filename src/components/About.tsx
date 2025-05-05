@@ -10,8 +10,7 @@ const About = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animate-fade-in');
-            // Non rimuoviamo l'observer qui per mantenere la visibilità
-            // observer.unobserve(entry.target);
+            observer.unobserve(entry.target);
           }
         });
       },
