@@ -33,8 +33,8 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="min-h-screen flex items-center pt-20 px-6 md:px-10">
-      <div ref={containerRef} className="max-w-4xl mx-auto">
+    <section id="home" className="min-h-screen flex items-center pt-20 px-6 md:px-10">
+      <div ref={containerRef} className="max-w-3xl">
         <p className="animate-on-load font-mono text-accent mb-6 text-sm sm:text-base">
           Hi, my name is
         </p>

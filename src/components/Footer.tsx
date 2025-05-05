@@ -1,22 +1,40 @@
 
-import React from 'react';
+import { Github, Linkedin } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="py-6 px-6 md:px-10 text-center text-slate text-sm">
+    <footer className="py-10 px-6 md:px-10">
       <div className="max-w-4xl mx-auto">
-        <p>
-          Built by Andrea Fumagalli – Inspired by 
-          <a 
-            href="https://brittanychiang.com" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-accent hover:text-accent/80 ml-1 transition-colors"
-          >
-            Brittany Chiang
-          </a>
-        </p>
-        <p className="mt-2">© {new Date().getFullYear()} All Rights Reserved.</p>
+        <div className="flex flex-col items-center justify-center">
+          <div className="flex items-center space-x-5 mb-6 lg:hidden">
+            <a 
+              href="https://github.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-slate hover:text-accent transition-colors"
+              aria-label="GitHub"
+            >
+              <Github size={20} />
+            </a>
+            <a 
+              href="https://linkedin.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-slate hover:text-accent transition-colors"
+              aria-label="LinkedIn"
+            >
+              <Linkedin size={20} />
+            </a>
+          </div>
+          
+          <p className="text-center text-slate text-xs">
+            Design inspired by <a href="https://brittanychiang.com" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Brittany Chiang</a>
+          </p>
+          
+          <p className="text-center text-slate text-xs mt-2">
+            Built with React & Tailwind CSS
+          </p>
+        </div>
       </div>
     </footer>
   );
