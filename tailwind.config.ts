@@ -32,6 +32,7 @@ export default {
 				navy: {
 					DEFAULT: '#0a192f',
 					light: '#112240',
+					
 				},
 				slate: {
 					DEFAULT: '#8892b0',

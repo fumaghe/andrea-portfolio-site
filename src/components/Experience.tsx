@@ -1,6 +1,10 @@
-
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
+
+/* --------------------------------------------------
+   DATA
+-------------------------------------------------- */
 
 interface ExperienceItem {
   title: string;
@@ -13,166 +17,229 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
-    title: "Data Scientist & Web Developer",
-    company: "STORViX AB",
-    companyLink: "#",
-    date: "Jan 2025 - Jun 2025",
+    title: 'Data Scientist & Web Developer',
+    company: 'STORViX AB',
+    companyLink: '#',
+    date: 'JAN 2025 — JUN 2025',
     description: [
-      "Developed data visualization dashboards to monitor system performance and user behavior",
-      "Implemented machine learning algorithms for predictive analytics",
-      "Contributed to full-stack development of internal tools",
-      "Gained international experience through the Erasmus+ program"
+      'Developed data visualization dashboards to monitor system performance and user behavior',
+      'Implemented machine learning algorithms for predictive analytics',
+      'Contributed to full‑stack development of internal tools',
+      'Gained international experience through the Erasmus+ program',
     ],
-    technologies: ["Python", "SQL", "JavaScript", "React", "TensorFlow"]
+    technologies: ['Python', 'SQL', 'JavaScript', 'React', 'TensorFlow'],
   },
   {
-    title: "Real Estate Agent",
-    company: "Tecnocasa",
-    companyLink: "https://www.tecnocasa.it",
-    date: "Mar 2023 - Aug 2023",
+    title: 'Real Estate Agent',
+    company: 'Tecnocasa',
+    companyLink: 'https://www.tecnocasa.it',
+    date: 'MAR 2023 — AUG 2023',
     description: [
-      "Managed client portfolios and property negotiations",
-      "Analyzed market trends and property valuations",
-      "Created data-driven reports to inform investment decisions",
-      "Developed strong communication and negotiation skills"
+      'Managed client portfolios and property negotiations',
+      'Analyzed market trends and property valuations',
+      'Created data‑driven reports to inform investment decisions',
+      'Developed strong communication and negotiation skills',
     ],
-    technologies: ["Market Analysis", "Excel", "CRM Software"]
+    technologies: ['Market Analysis', 'Excel', 'CRM Software'],
   },
   {
-    title: "Waiter & Bartender",
-    company: "The Fertha",
-    date: "2018 - 2019",
+    title: 'Waiter & Bartender',
+    company: 'The Fertha',
+    date: '2018 — 2019',
     description: [
-      "Provided excellent customer service in a fast-paced environment",
-      "Managed inventory and order processing systems",
-      "Developed strong interpersonal and teamwork skills",
-      "Improved English language proficiency while working abroad"
+      'Provided excellent customer service in a fast‑paced environment',
+      'Managed inventory and order processing systems',
+      'Developed strong interpersonal and teamwork skills',
+      'Improved English language proficiency while working abroad',
     ],
-    technologies: ["Customer Service", "Time Management", "English"]
+    technologies: ['Customer Service', 'Time Management', 'English'],
   },
   {
-    title: "Innovation Program Participant",
-    company: "Cisco Systems Italy",
-    companyLink: "https://www.cisco.com",
-    date: "2018 - 2019",
+    title: 'Innovation Program Participant',
+    company: 'Cisco Systems Italy',
+    companyLink: 'https://www.cisco.com',
+    date: '2018 — 2019',
     description: [
-      "Participated in workshops focused on networking technologies and innovation",
-      "Collaborated with team members on technical projects",
-      "Gained exposure to enterprise-level technology solutions",
-      "Developed foundational understanding of IT infrastructure"
+      'Participated in workshops focused on networking technologies and innovation',
+      'Collaborated with team members on technical projects',
+      'Gained exposure to enterprise‑level technology solutions',
+      'Developed foundational understanding of IT infrastructure',
     ],
-    technologies: ["Networking", "IT Infrastructure", "Innovation"]
-  }
+    technologies: ['Networking', 'IT Infrastructure', 'Innovation'],
+  },
 ];
 
-const Experience = () => {
-  const [activeTab, setActiveTab] = useState(0);
-  const sectionRef = useRef<HTMLElement>(null);
+interface StudyItem {
+  institution: string;
+  degree: string;
+  location: string;
+  date: string;
+  link?: string;
+}
 
+const studies: StudyItem[] = [
+  {
+    institution: 'Higher VET Institute, ITS Angelo Rizzoli',
+    location: 'Milan, Italy',
+    degree: 'Associate Degree • Big Data Specialist',
+    date: 'OCT 2023 — JUL 2025',
+  },
+  {
+    institution: 'University of Milan',
+    location: 'Milan, Italy',
+    degree: 'Attendance • Medical Biotechnology',
+    date: 'OCT 2020 — MAR 2023',
+  },
+  {
+    institution: 'Asana International School',
+    location: 'Cahersiveen, Ireland',
+    degree: 'English Course',
+    date: 'JUL 2018 • JUL 2019',
+  },
+  {
+    institution: 'Salesiani Don Bosco',
+    location: 'Treviglio (BG), Italy',
+    degree: 'High School Diploma • Scientific Studies (Applied Sciences)',
+    date: 'SEP 2014 — JUN 2020',
+  },
+];
+
+/* --------------------------------------------------
+   COMPONENTS
+-------------------------------------------------- */
+
+const TimelineBullet = () => (
+  <span className="mt-[6px] h-[6px] w-[6px] shrink-0 rounded-full bg-accent/60" />
+);
+
+const TabButton = ({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) => (
+  <button
+    onClick={onClick}
+    className={cn(
+      'font-mono text-sm px-4 py-2 transition-all',
+      active ? 'rounded bg-accent/10 text-accent' : 'text-slate hover:text-accent',
+    )}
+  >
+    {label}
+  </button>
+);
+
+/* --------------------------------------------------
+   MAIN SECTION
+-------------------------------------------------- */
+
+const Experience = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [tab, setTab] = useState<'experience' | 'studies'>('experience');
+
+  // ensure observer runs again when tab changes so new nodes get animated
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in');
-            // Don't unobserve to ensure elements stay visible
-          }
+          if (entry.isIntersecting) entry.target.classList.add('animate-fade-in');
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
-    const animElements = sectionRef.current?.querySelectorAll('.animate-on-scroll');
-    animElements?.forEach((el) => {
+    const els = sectionRef.current?.querySelectorAll('.animate-on-scroll');
+    els?.forEach((el) => {
+      // reset visibility so newly mounted items start hidden then fade in
+      (el as HTMLElement).classList.remove('animate-fade-in');
       observer.observe(el);
     });
 
-    return () => {
-      if (animElements) {
-        animElements.forEach((el) => {
-          observer.unobserve(el);
-          // Ensure elements are visible when component unmounts
-          el.classList.add('animate-fade-in');
-        });
-      }
-    };
-  }, []);
+    return () => els?.forEach((el) => observer.unobserve(el));
+  }, [tab]);
 
   return (
     <section id="experience" className="section-container" ref={sectionRef}>
-      <h2 className="section-heading experience">Where I've Worked</h2>
-      
-      <div className="opacity-0 animate-on-scroll mt-8">
-        <div className="flex flex-col md:flex-row gap-6">
-          {/* Tabs - Vertical for desktop, horizontal scrolling for mobile */}
-          <div className="flex md:flex-col overflow-x-auto md:overflow-visible whitespace-nowrap md:whitespace-normal border-b md:border-b-0 md:border-l border-slate/20">
-            {experiences.map((exp, index) => (
-              <button 
-                key={index} 
-                onClick={() => setActiveTab(index)}
-                className={cn(
-                  "py-3 md:py-2 px-4 md:pl-6 md:pr-10 font-mono text-sm text-left transition-all",
-                  activeTab === index 
-                    ? "text-accent border-accent md:border-l-2 md:border-b-0 border-b-2" 
-                    : "text-slate hover:text-slate-light hover:bg-navy-light"
-                )}
-              >
-                {exp.company}
-              </button>
-            ))}
-          </div>
+      <h2 className="section-heading experience">Career & Education</h2>
 
-          {/* Tab content */}
-          <div className="flex-grow mt-6 md:mt-0">
-            {experiences.map((exp, index) => (
-              <div 
-                key={index} 
-                className={cn(
-                  "transition-all duration-300",
-                  activeTab === index ? "opacity-100" : "opacity-0 hidden"
-                )}
-              >
-                <h3 className="text-xl font-semibold text-slate-light">
-                  {exp.title}{" "}
-                  <span className="text-accent">
-                    @ {exp.companyLink ? (
-                      <a 
-                        href={exp.companyLink} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="link-underline"
-                      >
-                        {exp.company}
-                      </a>
-                    ) : (
-                      exp.company
-                    )}
-                  </span>
+      {/* Tabs */}
+      <div className="mt-8 flex gap-6 border-b border-slate/20 pb-3">
+        <TabButton label="Experience" active={tab === 'experience'} onClick={() => setTab('experience')} />
+        <TabButton label="Studies" active={tab === 'studies'} onClick={() => setTab('studies')} />
+      </div>
+
+      {/* EXPERIENCE TIMELINE */}
+      {tab === 'experience' && (
+        <div className="mt-14 space-y-16">
+          {experiences.map((exp, idx) => (
+            <div key={idx} className="animate-on-scroll flex flex-col gap-6 sm:flex-row opacity-0">
+              {/* DATE */}
+              <p className="w-full shrink-0 font-mono text-xs uppercase tracking-wider text-slate-light sm:w-40 lg:w-48">
+                {exp.date}
+              </p>
+              <div className="flex-1 space-y-4">
+                <h3 className="text-lg font-semibold text-slate-light sm:text-xl">
+                  {exp.title},
+                  {exp.companyLink ? (
+                    <a
+                      href={exp.companyLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-[2px] pl-1 hover:text-accent"
+                    >
+                      {exp.company}
+                      <ArrowUpRight size={14} className="mt-[2px]" />
+                    </a>
+                  ) : (
+                    <span className="pl-1 text-slate">{exp.company}</span>
+                  )}
                 </h3>
-                
-                <p className="font-mono text-xs text-slate mt-1 mb-4">{exp.date}</p>
-                
                 <ul className="space-y-2">
-                  {exp.description.map((item, i) => (
+                  {exp.description.map((d, i) => (
                     <li key={i} className="flex gap-2 text-slate">
-                      <span className="text-accent flex-shrink-0 mt-1">▹</span>
-                      <span>{item}</span>
+                      <TimelineBullet />
+                      {d}
                     </li>
                   ))}
                 </ul>
-                
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {exp.technologies.map((tech, i) => (
-                    <span key={i} className="skill-tag">
+                <div className="flex flex-wrap gap-2 pt-2">
+                  {exp.technologies.map((tech) => (
+                    <span key={tech} className="rounded-md bg-navy-light/40 px-3 py-1 text-xs font-mono text-slate-light backdrop-blur-sm">
                       {tech}
                     </span>
                   ))}
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      </div>
+      )}
+
+      {/* STUDIES TIMELINE */}
+      {tab === 'studies' && (
+        <div className="mt-14 space-y-16">
+          {studies.map((study, idx) => (
+            <div key={idx} className="animate-on-scroll flex flex-col gap-6 sm:flex-row opacity-0">
+              {/* DATE */}
+              <p className="w-full shrink-0 font-mono text-xs uppercase tracking-wider text-slate-light sm:w-40 lg:w-48">
+                {study.date}
+              </p>
+              <div className="flex-1 space-y-3">
+                <h3 className="text-lg font-semibold text-slate-light sm:text-xl">
+                  {study.institution}
+                  {study.link && (
+                    <a
+                      href={study.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-[2px] pl-1 hover:text-accent"
+                    >
+                      <ArrowUpRight size={14} className="mt-[2px]" />
+                    </a>
+                  )}
+                </h3>
+                <p className="font-mono text-sm text-slate-light/80">{study.degree}</p>
+                <p className="text-sm text-slate">{study.location}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 };

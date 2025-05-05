@@ -1,89 +1,115 @@
-
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Github, Linkedin } from 'lucide-react';
 
-const Sidebar = () => {
-  const [activeSection, setActiveSection] = useState('home');
+const nav = [
+  { num: '01', id: 'about',      label: 'About' },
+  { num: '02', id: 'experience', label: 'Experience' },
+  { num: '03', id: 'projects',   label: 'Projects' },
+  { num: '04', id: 'skills',     label: 'Skills' },
+  { num: '05', id: 'contact',    label: 'Contact' },
+];
 
+const Sidebar = () => {
+  const [active, setActive] = useState('about');
+
+  /* evidenzia la sezione corrente mentre scorri */
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = document.querySelectorAll('section[id]');
-      const scrollY = window.pageYOffset;
-      
-      sections.forEach(current => {
-        const sectionHeight = (current as HTMLElement).offsetHeight;
-        const sectionTop = (current as HTMLElement).offsetTop - 100;
-        const sectionId = current.getAttribute('id') || '';
-        
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-          setActiveSection(sectionId);
-        }
+    const handler = () => {
+      document.querySelectorAll<HTMLElement>('section[id]').forEach(sec => {
+        const top    = sec.offsetTop - 140;
+        const bottom = top + sec.offsetHeight;
+        if (scrollY >= top && scrollY < bottom) setActive(sec.id);
       });
     };
-    
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    handler();
+    window.addEventListener('scroll', handler);
+    return () => window.removeEventListener('scroll', handler);
   }, []);
 
-  const navItems = [
-    { num: "01", name: "About", href: "#about", id: "about" },
-    { num: "02", name: "Experience", href: "#experience", id: "experience" },
-    { num: "03", name: "Projects", href: "#projects", id: "projects" },
-    { num: "04", name: "Skills", href: "#skills", id: "skills" },
-    { num: "05", name: "Contact", href: "#contact", id: "contact" }
-  ];
-
   return (
-    <aside className="fixed left-0 h-screen w-[300px] flex flex-col justify-between py-10 px-6 md:px-10 hidden lg:flex">
-      <div className="space-y-6">
-        <div className="space-y-1">
-          <h1 className="text-3xl font-semibold text-slate-light">Andrea Fumagalli</h1>
-          <h2 className="text-xl text-slate">Data Scientist</h2>
-          <p className="text-slate text-sm mt-2">I turn data into decisions.</p>
-        </div>
+    <aside
+      className="
+        hidden lg:flex fixed inset-y-0 left-0 w-[50vw]
+        flex-col bg-navy-dark px-[4vw] py-12
+        overflow-y-auto hide-scrollbar
+      "
+    >
+      {/* ---------- HEADER ---------- */}
+      <header
+        className="
+          max-w-[90%]
+          flex flex-col
+          gap-y-[clamp(0.75rem,2vh,1.25rem)]
+        "
+      >
+        <h1
+          className="
+            font-semibold leading-tight text-slate-light
+            text-[clamp(2.5rem,8vh,5rem)]
+          "
+        >
+          Andrea Fumagalli
+        </h1>
 
-        <nav className="mt-16">
-          <ul className="space-y-4">
-            {navItems.map((item) => (
-              <li key={item.num}>
-                <a 
-                  href={item.href} 
-                  className={`group flex items-center py-1 ${activeSection === item.id ? 'text-accent' : 'text-slate hover:text-accent'} transition-colors duration-300`}
-                >
-                  <span className="font-mono text-xs mr-2 text-accent">{item.num}.</span>
-                  <span className="font-mono text-sm relative">
-                    {item.name}
-                    <span className={`absolute -bottom-1 left-0 w-0 h-[1px] bg-accent transition-all duration-300 ${activeSection === item.id ? 'w-full' : 'group-hover:w-full'}`}></span>
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-      
-      <div className="flex items-center space-x-5">
-        <a 
-          href="https://github.com" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="text-slate hover:text-accent transition-colors"
-          aria-label="GitHub"
-        >
-          <Github size={20} />
-        </a>
-        <a 
-          href="https://linkedin.com" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="text-slate hover:text-accent transition-colors"
-          aria-label="LinkedIn"
-        >
-          <Linkedin size={20} />
-        </a>
+        <h2 className="text-2xl text-slate">Data Scientist</h2>
+
+        <p className="text-sm leading-relaxed text-slate">
+          I&nbsp;turn data into decisions.
+        </p>
+      </header>
+
+      {/* ---------- NAV ---------- */}
+      <nav
+        className="
+          mt-[clamp(2rem,5vh,4rem)]
+        "
+      >
+        <ul className="space-y-[clamp(1rem,2vh,1.5rem)]">
+          {nav.map(({ num, id, label }) => (
+            <li key={id}>
+              <a
+                href={`#${id}`}
+                className={`
+                  group relative inline-flex items-center font-mono text-sm
+                  after:absolute after:-bottom-1 after:left-0 after:h-px after:bg-accent
+                  after:transition-all after:duration-300
+                  ${
+                    active === id
+                      ? 'text-accent after:w-full'
+                      : 'text-slate hover:text-accent after:w-0 group-hover:after:w-full'
+                  }
+                `}
+              >
+                <span className="mr-3 text-xs text-accent">{num}.</span>
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      {/* ---------- SOCIAL ---------- */}
+      <div className="mt-auto flex space-x-6">
+        <Social href="https://github.com"   aria="GitHub"><Github  size={22} /></Social>
+        <Social href="https://linkedin.com" aria="LinkedIn"><Linkedin size={22} /></Social>
       </div>
     </aside>
   );
 };
 
 export default Sidebar;
+
+/* helper */
+const Social = ({
+  href, aria, children,
+}: React.PropsWithChildren<{ href: string; aria: string }>) => (
+  <a
+    href={href}
+    aria-label={aria}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-slate hover:text-accent transition-colors"
+  >
+    {children}
+  </a>
+);

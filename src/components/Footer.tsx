@@ -28,7 +28,7 @@ const Footer = () => {
           </div>
           
           <p className="text-center text-slate text-xs">
-            Design inspired by <a href="https://brittanychiang.com" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Brittany Chiang</a>
+            All rights reserved to Andrea Fumagalli
           </p>
           
           <p className="text-center text-slate text-xs mt-2">

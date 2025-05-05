@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from 'react';
 import { Github, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -10,87 +9,87 @@ interface ProjectProps {
   githubLink: string;
   externalLink?: string;
   image: string;
-  isReversed?: boolean;
   index: number;
 }
 
-const ProjectCard = ({ 
-  title, 
-  description, 
+const ProjectCard = ({
+  title,
+  description,
   technologies,
   githubLink,
   externalLink,
   image,
-  isReversed,
-  index
+  index,
 }: ProjectProps) => {
   return (
-    <div 
-      className={cn(
-        "relative grid grid-cols-12 gap-2 items-center opacity-0 animate-on-scroll",
-        isReversed ? "md:flex-row-reverse" : ""
-      )}
+    <div
+      className={
+        cn(
+          'relative group w-full h-64 md:h-[350px] rounded-lg overflow-hidden shadow-lg opacity-0 animate-on-scroll',
+        )
+      }
       style={{ transitionDelay: `${index * 200}ms` }}
     >
-      {/* Project image - shared between mobile and desktop */}
-      <div className={cn(
-        "relative col-span-12 md:col-span-7 rounded overflow-hidden",
-        isReversed ? "md:col-start-1" : "md:col-start-6"
-      )}>
-        <div className="absolute inset-0 bg-accent/20 hover:bg-transparent transition-colors z-10"></div>
-        <img 
-          src={image} 
-          alt={title}
-          className="w-full h-64 md:h-[350px] object-cover object-center grayscale hover:grayscale-0 transition-all duration-500"
-        />
-      </div>
-      
-      {/* Project info */}
-      <div className={cn(
-        "col-span-12 md:col-span-7 md:row-start-1 z-20 py-4",
-        isReversed ? "md:col-start-6 text-left" : "md:col-start-1 text-right"
-      )}>
-        <p className="font-mono text-sm text-accent mb-1">Featured Project</p>
-        <h3 className="text-2xl font-semibold text-slate-light mb-3">{title}</h3>
-        
-        <div className="bg-navy-light p-5 rounded shadow-lg mb-4 md:max-w-[120%]">
-          <p className="text-slate">{description}</p>
-        </div>
-        
-        <ul className={cn(
-          "flex flex-wrap gap-x-4 gap-y-2 mb-4 text-xs font-mono text-slate",
-          isReversed ? "justify-start" : "justify-end"
-        )}>
-          {technologies.map((tech, i) => (
-            <li key={i}>{tech}</li>
-          ))}
-        </ul>
-        
-        <div className={cn(
-          "flex gap-4 text-slate-light", 
-          isReversed ? "justify-start" : "justify-end"
-        )}>
-          <a 
-            href={githubLink} 
+      {/* Background image */}
+      <img
+        src={image}
+        alt={title}
+        className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+      />
+
+      {/* Gradient overlay to enhance readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-navy/60 to-navy/90 group-hover:via-navy/40 transition-colors duration-500" />
+
+      {/* Action icons */}
+      <div className="absolute top-4 right-4 z-20 flex gap-4 text-slate-light">
+        <a
+          href={githubLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-accent transition-colors"
+          aria-label="GitHub Repository"
+        >
+          <Github size={20} />
+        </a>
+        {externalLink && (
+          <a
+            href={externalLink}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-accent transition-colors"
-            aria-label="GitHub Repository"
+            aria-label="Live Demo"
           >
-            <Github size={20} />
+            <ExternalLink size={20} />
           </a>
-          {externalLink && (
-            <a 
-              href={externalLink} 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-accent transition-colors"
-              aria-label="Live Demo"
+        )}
+      </div>
+
+      {/* Project content */}
+      <div className="relative z-10 h-full flex flex-col justify-end p-6 text-slate-light">
+        <p className="font-mono text-sm text-accent mb-1">Featured Project</p>
+        <a
+          href={externalLink || githubLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-2xl font-semibold hover:text-accent transition-colors"
+        >
+          {title}
+        </a>
+        <p className="mt-2 line-clamp-2 text-slate-light/90 text-sm">
+          {description}
+        </p>
+
+        {/* Technologies */}
+        <ul className="flex flex-wrap gap-2 mt-4">
+          {technologies.map((tech) => (
+            <li
+              key={tech}
+              className="bg-navy-light/50 backdrop-blur-sm px-2 py-1 rounded text-xs font-mono"
             >
-              <ExternalLink size={20} />
-            </a>
-          )}
-        </div>
+              {tech}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
@@ -98,28 +97,34 @@ const ProjectCard = ({
 
 const projects = [
   {
-    title: "Data Visualization Dashboard",
-    description: "An interactive dashboard built to visualize complex datasets. Features include real-time filtering, custom chart configurations, and exportable reports for business intelligence applications.",
-    technologies: ["React", "D3.js", "Python", "Flask", "SQL"],
-    githubLink: "https://github.com",
-    externalLink: "https://example.com",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800"
+    title: 'Data Visualization Dashboard',
+    description:
+      'An interactive dashboard built to visualize complex datasets. Features include real-time filtering, custom chart configurations, and exportable reports for business intelligence applications.',
+    technologies: ['React', 'D3.js', 'Python', 'Flask', 'SQL'],
+    githubLink: 'https://github.com',
+    externalLink: 'https://example.com',
+    image:
+      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800',
   },
   {
-    title: "Predictive Analytics Platform",
-    description: "A machine learning platform that analyzes historical data to predict future trends. Implemented multiple ML algorithms to provide accurate forecasts for business decision-making.",
-    technologies: ["Python", "TensorFlow", "Pandas", "Scikit-learn", "Docker"],
-    githubLink: "https://github.com",
-    image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800"
+    title: 'Predictive Analytics Platform',
+    description:
+      'A machine learning platform that analyzes historical data to predict future trends. Implemented multiple ML algorithms to provide accurate forecasts for business decision-making.',
+    technologies: ['Python', 'TensorFlow', 'Pandas', 'Scikit-learn', 'Docker'],
+    githubLink: 'https://github.com',
+    image:
+      'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800',
   },
   {
-    title: "Smart Telemetry System",
-    description: "Developed during my time in Sweden, this system collects and processes IoT sensor data in real-time. Features include anomaly detection and automated alerting for critical events.",
-    technologies: ["Node.js", "MongoDB", "MQTT", "AWS", "React"],
-    githubLink: "https://github.com",
-    externalLink: "https://example.com",
-    image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800"
-  }
+    title: 'Smart Telemetry System',
+    description:
+      'Developed during my time in Sweden, this system collects and processes IoT sensor data in real-time. Features include anomaly detection and automated alerting for critical events.',
+    technologies: ['Node.js', 'MongoDB', 'MQTT', 'AWS', 'React'],
+    githubLink: 'https://github.com',
+    externalLink: 'https://example.com',
+    image:
+      'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800',
+  },
 ];
 
 const Projects = () => {
@@ -130,35 +135,29 @@ const Projects = () => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in');
-            // Don't unobserve to ensure elements stay visible
+            entry.target.classList.add('animate-fade-in', 'animate-slide-up');
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 },
     );
 
     const animElements = sectionRef.current?.querySelectorAll('.animate-on-scroll');
-    animElements?.forEach((el) => {
-      observer.observe(el);
-    });
+    animElements?.forEach((el) => observer.observe(el));
 
     return () => {
-      if (animElements) {
-        animElements.forEach((el) => {
-          observer.unobserve(el);
-          // Ensure elements are visible when component unmounts
-          el.classList.add('animate-fade-in');
-        });
-      }
+      animElements?.forEach((el) => {
+        observer.unobserve(el);
+        el.classList.add('animate-fade-in', 'animate-slide-up');
+      });
     };
   }, []);
 
   return (
     <section id="projects" className="section-container" ref={sectionRef}>
       <h2 className="section-heading projects">Some Things I've Built</h2>
-      
-      <div className="space-y-24 mt-10">
+
+      <div className="space-y-16 mt-10">
         {projects.map((project, index) => (
           <ProjectCard
             key={index}
@@ -168,7 +167,6 @@ const Projects = () => {
             githubLink={project.githubLink}
             externalLink={project.externalLink}
             image={project.image}
-            isReversed={index % 2 !== 0}
             index={index}
           />
         ))}

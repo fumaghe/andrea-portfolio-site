@@ -1,57 +1,41 @@
-
 import { useEffect, useRef } from 'react';
 
 const Hero = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-    
-    const elements = container.querySelectorAll('.animate-on-load');
-    
-    elements.forEach((el, index) => {
-      const element = el as HTMLElement;
-      element.style.opacity = '0';
-      element.style.transform = 'translateY(20px)';
-      
-      setTimeout(() => {
-        element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        element.style.opacity = '1';
-        element.style.transform = 'translateY(0)';
-      }, 100 * index);
-    });
+  const wrap = useRef<HTMLDivElement>(null);
 
-    // Ensure elements remain visible by preventing any styles from being removed
-    return () => {
-      elements.forEach((el) => {
-        const element = el as HTMLElement;
-        element.style.opacity = '1';
-        element.style.transform = 'translateY(0)';
-      });
-    };
+  /* animazione fade/slide sugli elementi   */
+  useEffect(() => {
+    const els = wrap.current?.querySelectorAll<HTMLElement>('[data-anim]') ?? [];
+    els.forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(25px)';
+      setTimeout(() => {
+        el.style.transition = 'opacity .5s ease, transform .5s ease';
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, 120 * i);
+    });
   }, []);
 
   return (
-    <section id="home" className="min-h-screen flex items-center pt-20 px-6 md:px-10">
-      <div ref={containerRef} className="max-w-3xl">
-        <p className="animate-on-load font-mono text-accent mb-6 text-sm sm:text-base">
-          Hi, my name is
-        </p>
-        <h1 className="animate-on-load text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-slate-light mb-4">
+    <section id="home" className="lg:hidden min-h-screen flex items-center pt-20 px-6">
+      <div ref={wrap} className="max-w-2xl mx-auto">
+        <p data-anim className="font-mono text-accent mb-6 text-sm">Hi, my name is</p>
+        <h1 data-anim className="text-4xl sm:text-5xl font-semibold leading-tight text-slate-light mb-2">
           Andrea Fumagalli.
         </h1>
-        <h2 className="animate-on-load text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-slate mb-6">
+        <h2 data-anim className="text-3xl sm:text-4xl font-semibold text-slate mb-6">
           I turn data into decisions.
         </h2>
-        <p className="animate-on-load max-w-lg text-slate mb-10 text-lg">
-          I'm a detail-oriented Data Scientist with expertise in data visualization, Python, SQL, and R. 
+        <p data-anim className="text-lg text-slate max-w-lg mb-10">
+          I'm a detail‑oriented Data Scientist with expertise in data visualization, Python, SQL, and R. 
           I specialize in deriving meaningful insights from complex datasets.
         </p>
-        <div className="animate-on-load">
-          <a 
-            href="#contact" 
-            className="font-mono inline-block border border-accent text-accent px-6 py-4 rounded hover:bg-accent/10 transition-colors duration-300"
+        <div data-anim>
+          <a
+            href="#contact"
+            className="font-mono border border-accent text-accent px-6 py-4 rounded
+                       hover:bg-accent/10 transition-colors"
           >
             Get in touch
           </a>
