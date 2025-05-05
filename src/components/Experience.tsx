@@ -75,7 +75,7 @@ const Experience = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animate-fade-in');
-            observer.unobserve(entry.target);
+            // Don't unobserve to ensure elements stay visible
           }
         });
       },
@@ -88,9 +88,13 @@ const Experience = () => {
     });
 
     return () => {
-      animElements?.forEach((el) => {
-        observer.unobserve(el);
-      });
+      if (animElements) {
+        animElements.forEach((el) => {
+          observer.unobserve(el);
+          // Ensure elements are visible when component unmounts
+          el.classList.add('animate-fade-in');
+        });
+      }
     };
   }, []);
 

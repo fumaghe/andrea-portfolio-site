@@ -10,7 +10,7 @@ const About = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animate-fade-in');
-            observer.unobserve(entry.target);
+            // Don't unobserve to ensure elements stay visible even on re-entry
           }
         });
       },
@@ -23,9 +23,13 @@ const About = () => {
     });
 
     return () => {
-      animElements?.forEach((el) => {
-        observer.unobserve(el);
-      });
+      if (animElements) {
+        animElements.forEach((el) => {
+          observer.unobserve(el);
+          // Ensure elements are visible when component unmounts
+          el.classList.add('animate-fade-in');
+        });
+      }
     };
   }, []);
 

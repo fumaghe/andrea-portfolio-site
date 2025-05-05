@@ -21,6 +21,15 @@ const Hero = () => {
         element.style.transform = 'translateY(0)';
       }, 100 * index);
     });
+
+    // Ensure elements remain visible by preventing any styles from being removed
+    return () => {
+      elements.forEach((el) => {
+        const element = el as HTMLElement;
+        element.style.opacity = '1';
+        element.style.transform = 'translateY(0)';
+      });
+    };
   }, []);
 
   return (
