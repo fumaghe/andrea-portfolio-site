@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from 'react';
 import { Github, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -131,7 +130,8 @@ const Projects = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animate-fade-in');
-            observer.unobserve(entry.target);
+            // Non rimuoviamo l'observer qui per mantenere la visibilità
+            // observer.unobserve(entry.target);
           }
         });
       },

@@ -20,6 +20,12 @@ const Hero = () => {
         element.style.opacity = '1';
         element.style.transform = 'translateY(0)';
       }, 100 * index);
+
+      // Assicuriamoci che gli elementi rimangano visibili
+      setTimeout(() => {
+        element.style.opacity = '1';
+        element.style.transform = 'translateY(0)';
+      }, 1000 + 100 * index);
     });
   }, []);
 
