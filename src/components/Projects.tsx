@@ -1,7 +1,10 @@
+
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Github, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
+import { getFeaturedProjects } from '@/data/projects';
 
 interface Project {
   title: string;
@@ -177,35 +180,8 @@ const Projects: React.FC = () => {
     };
   }, []);
 
-  /* ----------------------------- project content ----------------------------- */
-  const projects: Project[] = [
-    {
-      title: 'Data Visualization Dashboard',
-      description:
-        'An interactive dashboard built to visualize complex datasets. Features include real-time filtering, custom chart configurations, and exportable reports for business intelligence applications.',
-      technologies: ['React', 'D3.js', 'Python', 'Flask', 'SQL'],
-      githubLink: 'https://github.com',
-      externalLink: 'https://example.com',
-      image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800',
-    },
-    {
-      title: 'Predictive Analytics Platform',
-      description:
-        'A machine learning platform that analyzes historical data to predict future trends. Implemented multiple ML algorithms to provide accurate forecasts for business decision-making.',
-      technologies: ['Python', 'TensorFlow', 'Pandas', 'Scikit-learn', 'Docker'],
-      githubLink: 'https://github.com',      
-      externalLink: 'https://example.com',
-      image: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=800',
-    },
-    {
-      title: 'Smart Telemetry System',
-      description:
-        'Developed during my time in Sweden, this system collects and processes IoT sensor data in real-time. Features include anomaly detection and automated alerting for critical events.',
-      technologies: ['Node.js', 'MongoDB', 'MQTT', 'AWS', 'React'],
-      githubLink: 'https://github.com',
-      image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=800',
-    },
-  ];
+  // Get featured projects from the data file
+  const featuredProjects = getFeaturedProjects();
 
   return (
     <section id="projects" className="section-container" ref={sectionRef}>
@@ -215,7 +191,7 @@ const Projects: React.FC = () => {
         className="relative flex flex-col gap-16 md:gap-24" // stessa distanza originale
         style={{ perspective: '1200px' }}
       >
-        {projects.map((project, index) => (
+        {featuredProjects.map((project, index) => (
           <ProjectCard
             key={index}
             index={index}
@@ -224,6 +200,17 @@ const Projects: React.FC = () => {
             {...project}
           />
         ))}
+      </div>
+      
+      {/* View All Projects link */}
+      <div className="mt-16 text-center animate-on-scroll">
+        <Link 
+          to="/projects" 
+          className="inline-flex items-center font-mono text-accent hover:opacity-80 transition-opacity text-lg group"
+        >
+          <span>Scopri tutti i progetti</span>
+          <span className="inline-block ml-1 transform group-hover:translate-x-1 transition-transform">→</span>
+        </Link>
       </div>
     </section>
   );
