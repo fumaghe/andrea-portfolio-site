@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { Toaster } from '@/components/ui/toaster';
@@ -19,7 +18,7 @@ const CursorSpotlight = () => {
     if (!el) return;
     const handle = (e: MouseEvent) => {
       el.style.left = `${e.clientX}px`;
-      el.style.top  = `${e.clientY}px`;
+      el.style.top = `${e.clientY}px`;
     };
     window.addEventListener('mousemove', handle);
     return () => window.removeEventListener('mousemove', handle);
@@ -44,7 +43,7 @@ const App = () => (
       <Toaster />
       <Sonner />
 
-      <BrowserRouter>
+      <BrowserRouter basename="/andrea-portfolio-site">
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/projects" element={<ProjectsPage />} />
