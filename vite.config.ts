@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig(({ mode }) => ({
-  base: "/andrea-portfolio-site/", // replace with your repo name
+  base: "/andrea-portfolio-site/", // Must match your GitHub repo name
   server: {
     host: "::",
     port: 8080,
@@ -17,13 +17,10 @@ export default defineConfig(({ mode }) => ({
       targets: [
         {
           src: "dist/index.html",
-          dest: "", // copies to root as 404.html
+          dest: "",
           rename: "404.html",
         },
       ],
-      watch: {
-        reloadPageOnChange: true,
-      },
     }),
   ].filter(Boolean),
   resolve: {
