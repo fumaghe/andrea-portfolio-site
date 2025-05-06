@@ -1,9 +1,10 @@
 
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
 import { projects } from '@/data/projects';
 import ProjectCard from '@/components/ProjectCard';
 import { Badge } from "@/components/ui/badge";
-import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from '@/lib/utils';
 
 const ProjectsPage: React.FC = () => {
@@ -66,6 +67,15 @@ const ProjectsPage: React.FC = () => {
 
   return (
     <section className="section-container" ref={sectionRef}>
+      {/* Back to Portfolio link */}
+      <Link
+        to="/"
+        className="inline-flex items-center text-slate hover:text-accent mb-8 transition-colors group"
+      >
+        <ArrowLeft size={16} className="mr-2 transition-transform group-hover:-translate-x-1" />
+        <span className="font-mono text-sm">Back to Portfolio</span>
+      </Link>
+      
       <h1 className="text-4xl font-semibold text-slate-light mb-4 animate-on-scroll">All Projects</h1>
       <p className="text-slate mb-8 max-w-xl animate-on-scroll">
         A collection of projects I've worked on, exploring various technologies and domains in data science and software development.
