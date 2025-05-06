@@ -29,31 +29,31 @@ const Sidebar = () => {
   return (
     <aside
       className="
-        hidden lg:flex fixed inset-y-0 left-0 w-[50vw]
-        flex-col bg-navy-dark px-[4vw] py-12
+        hidden lg:flex fixed inset-y-0 left-0 w-[45vw]
+        flex-col items-start bg-navy-dark px-[4vw] py-12
         overflow-y-auto hide-scrollbar
       "
     >
       {/* ---------- HEADER ---------- */}
       <header
         className="
-          max-w-[90%]
-          flex flex-col
+          w-full max-w-[90%]
+          flex flex-col items-start
           gap-y-[clamp(0.75rem,2vh,1.25rem)]
         "
       >
         <h1
           className="
-            font-semibold leading-tight text-slate-light
-            text-[clamp(2.5rem,8vh,5rem)]
+            self-start font-semibold leading-tight text-slate-light
+            text-[clamp(2.5rem,8vh,4rem)]
           "
         >
           Andrea Fumagalli
         </h1>
 
-        <h2 className="text-2xl text-slate">Data Scientist</h2>
+        <h2 className="text-[clamp(2rem,6vh,3.5rem)] text-center">Data Scientist</h2>
 
-        <p className="text-sm leading-relaxed text-slate">
+        <p className="text-[clamp(1rem,3vh,1.25rem)] leading-relaxed text-center text-slate">
           I&nbsp;turn data into decisions.
         </p>
       </header>
@@ -61,7 +61,7 @@ const Sidebar = () => {
       {/* ---------- NAV ---------- */}
       <nav
         className="
-          mt-[clamp(2rem,5vh,4rem)]
+          mt-[clamp(2rem,5vh,4rem)] w-full flex justify-start
         "
       >
         <ul className="space-y-[clamp(1rem,2vh,1.5rem)]">
@@ -70,7 +70,8 @@ const Sidebar = () => {
               <a
                 href={`#${id}`}
                 className={`
-                  group relative inline-flex items-center font-mono text-sm
+                  group relative inline-flex items-center justify-center font-mono
+                  text-[clamp(1.25rem,3vh,1.5rem)]
                   after:absolute after:-bottom-1 after:left-0 after:h-px after:bg-accent
                   after:transition-all after:duration-300
                   ${
@@ -80,7 +81,9 @@ const Sidebar = () => {
                   }
                 `}
               >
-                <span className="mr-3 text-xs text-accent">{num}.</span>
+                <span className="mr-3 text-[clamp(0.75rem,2vh,1rem)] text-accent">
+                  {num}.
+                </span>
                 {label}
               </a>
             </li>
@@ -89,9 +92,9 @@ const Sidebar = () => {
       </nav>
 
       {/* ---------- SOCIAL ---------- */}
-      <div className="mt-auto flex space-x-6">
-        <Social href="https://github.com"   aria="GitHub"><Github  size={22} /></Social>
-        <Social href="https://linkedin.com" aria="LinkedIn"><Linkedin size={22} /></Social>
+      <div className="mt-auto flex space-x-6 justify-start w-full">
+        <Social href="https://github.com"   aria="GitHub"><Github  size={28} /></Social>
+        <Social href="https://linkedin.com" aria="LinkedIn"><Linkedin size={28} /></Social>
       </div>
     </aside>
   );
@@ -100,9 +103,7 @@ const Sidebar = () => {
 export default Sidebar;
 
 /* helper */
-const Social = ({
-  href, aria, children,
-}: React.PropsWithChildren<{ href: string; aria: string }>) => (
+const Social = ({ href, aria, children }: React.PropsWithChildren<{ href: string; aria: string }>) => (
   <a
     href={href}
     aria-label={aria}

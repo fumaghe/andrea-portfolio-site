@@ -24,7 +24,7 @@ const Index = () => (
         min-h-screen
         overflow-y-auto
         pt-24 lg:pt-0
-        lg:ml-[50vw]          /* parte dopo la sidebar */
+        lg:ml-[40vw]          /* parte dopo la sidebar */
       "
     >
       <Hero />
