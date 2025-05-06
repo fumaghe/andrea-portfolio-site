@@ -31,12 +31,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         border border-transparent
       "
     >
-      {/* Project Image */}
-      <div className="w-full md:w-2/5 md:min-h-full">
+      {/* Project Image - Fixed height and width with object-cover for consistent dimensions */}
+      <div className="w-full md:w-2/5 h-60 md:h-auto">
         <img 
           src={image} 
           alt={title}
-          className="w-full h-60 md:h-full object-cover"
+          className="w-full h-full object-cover"
         />
       </div>
       
