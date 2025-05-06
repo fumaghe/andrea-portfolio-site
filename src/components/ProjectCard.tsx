@@ -31,8 +31,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
         border border-transparent
       "
     >
-      {/* Project Image - Fixed height and width with object-cover for consistent dimensions */}
-      <div className="w-full md:w-2/5 h-60 md:h-auto">
+      {/* Project Image - Fixed width and height for consistency */}
+      <div className="w-full md:w-72 h-60 flex-shrink-0">
         <img 
           src={image} 
           alt={title}

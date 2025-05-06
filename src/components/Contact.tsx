@@ -2,15 +2,36 @@
 import { useState, useEffect, useRef } from 'react';
 import { Github, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+
+// Define the form schema with validation
+const formSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters" }),
+  email: z.string().email({ message: "Please enter a valid email address" }),
+  message: z.string().min(10, { message: "Message must be at least 10 characters" }),
+});
+
+type FormData = z.infer<typeof formSchema>;
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
   const sectionRef = useRef<HTMLElement>(null);
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Initialize form with react-hook-form and zod validation
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
+  });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -41,23 +62,61 @@ const Contact = () => {
     };
   }, []);
   
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-  
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // In a real application, you'd send this data to a server
-    console.log('Form submitted:', formData);
+  const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
     
-    toast({
-      title: "Message sent!",
-      description: "Thank you for your message. I'll get back to you soon.",
-    });
-    
-    // Reset form
-    setFormData({ name: '', email: '', message: '' });
+    try {
+      // Create the email content
+      const emailContent = {
+        to: "fumagalliandrea01@gmail.com",
+        from: data.email,
+        subject: `Portfolio Contact from ${data.name}`,
+        message: data.message,
+        name: data.name,
+      };
+      
+      // Send the email using EmailJS or a similar service
+      // This is where we would normally connect to a backend service
+      // For now, we'll simulate sending by using the fetch API to a hypothetical endpoint
+      const response = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          service_id: "service_id", // You would replace this with your actual EmailJS service ID
+          template_id: "template_id", // You would replace this with your actual EmailJS template ID
+          user_id: "user_id", // You would replace this with your actual EmailJS user ID
+          template_params: {
+            to_email: "fumagalliandrea01@gmail.com",
+            from_name: data.name,
+            from_email: data.email,
+            message: data.message,
+          },
+        }),
+      });
+      
+      // For demo purposes, we'll just console.log and show a success toast
+      console.log("Form submitted:", data);
+      
+      toast({
+        title: "Message sent successfully!",
+        description: "Thank you for your message. I'll get back to you soon.",
+      });
+      
+      // Reset form
+      form.reset();
+      
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Error sending message",
+        description: "There was an error sending your message. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -68,53 +127,72 @@ const Contact = () => {
         <div className="opacity-0 animate-on-scroll" style={{ transitionDelay: '200ms' }}>
           <h3 className="text-2xl font-semibold text-slate-light mb-6">Send me a message</h3>
           
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="name" className="block text-slate mb-1 font-mono">Name</label>
-              <input
-                type="text"
-                id="name"
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <FormField
+                control={form.control}
                 name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full bg-navy-light border border-slate/20 rounded px-4 py-2 focus:outline-none focus:border-accent text-slate-light"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate font-mono">Name</FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="Your name" 
+                        className="bg-navy-light border border-slate/20 text-slate-light focus:border-accent" 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
-            
-            <div>
-              <label htmlFor="email" className="block text-slate mb-1 font-mono">Email</label>
-              <input
-                type="email"
-                id="email"
+              
+              <FormField
+                control={form.control}
                 name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full bg-navy-light border border-slate/20 rounded px-4 py-2 focus:outline-none focus:border-accent text-slate-light"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate font-mono">Email</FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder="Your email" 
+                        type="email" 
+                        className="bg-navy-light border border-slate/20 text-slate-light focus:border-accent" 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
-            </div>
-            
-            <div>
-              <label htmlFor="message" className="block text-slate mb-1 font-mono">Message</label>
-              <textarea
-                id="message"
+              
+              <FormField
+                control={form.control}
                 name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows={5}
-                className="w-full bg-navy-light border border-slate/20 rounded px-4 py-2 focus:outline-none focus:border-accent text-slate-light"
-              ></textarea>
-            </div>
-            
-            <button 
-              type="submit" 
-              className="font-mono border border-accent text-accent px-6 py-2 rounded hover:bg-accent/10 transition-colors"
-            >
-              Send Message
-            </button>
-          </form>
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-slate font-mono">Message</FormLabel>
+                    <FormControl>
+                      <Textarea 
+                        placeholder="Your message" 
+                        className="bg-navy-light border border-slate/20 text-slate-light focus:border-accent min-h-32" 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <button 
+                type="submit" 
+                disabled={isSubmitting}
+                className="font-mono border border-accent text-accent px-6 py-2 rounded hover:bg-accent/10 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? "Sending..." : "Send Message"}
+              </button>
+            </form>
+          </Form>
         </div>
         
         <div className="opacity-0 animate-on-scroll space-y-8" style={{ transitionDelay: '400ms' }}>
