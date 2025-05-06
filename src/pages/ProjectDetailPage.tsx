@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getProjectBySlug } from '@/data/projects';
 import { Github, ExternalLink, FileText, ArrowLeft } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const ProjectDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -31,9 +32,9 @@ const ProjectDetailPage: React.FC = () => {
     <section className={`section-container transition-opacity duration-500 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
       <Link
         to="/projects"
-        className="inline-flex items-center text-slate hover:text-accent mb-8 transition-colors"
+        className="inline-flex items-center text-slate hover:text-accent mb-8 transition-colors group"
       >
-        <ArrowLeft size={16} className="mr-2" />
+        <ArrowLeft size={16} className="mr-2 transition-transform group-hover:-translate-x-1" />
         <span className="font-mono text-sm">Back to Projects</span>
       </Link>
       
@@ -74,39 +75,54 @@ const ProjectDetailPage: React.FC = () => {
           </ul>
         </div>
         
-        <div className="flex flex-wrap gap-6">
-          <a
-            href={project.githubLink}
-            target="_blank"
-            rel="noopener noreferrer"
+        <div className="flex flex-wrap justify-center gap-6">
+          <Button
+            variant="outline"
             className="inline-flex items-center px-4 py-2 rounded-md bg-navy border border-slate/30 hover:border-accent transition-colors text-slate-light"
+            asChild
           >
-            <Github size={18} className="mr-2" />
-            View Source
-          </a>
-          
-          {project.externalLink && (
             <a
-              href={project.externalLink}
+              href={project.githubLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-4 py-2 rounded-md bg-navy border border-slate/30 hover:border-accent transition-colors text-slate-light"
             >
-              <ExternalLink size={18} className="mr-2" />
-              Visit Project
+              <Github size={18} className="mr-2" />
+              View Source
             </a>
+          </Button>
+          
+          {project.externalLink && (
+            <Button
+              variant="outline"
+              className="inline-flex items-center px-4 py-2 rounded-md bg-navy border border-slate/30 hover:border-accent transition-colors text-slate-light"
+              asChild
+            >
+              <a
+                href={project.externalLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <ExternalLink size={18} className="mr-2" />
+                Visit Project
+              </a>
+            </Button>
           )}
           
           {project.presentationLink && (
-            <a
-              href={project.presentationLink}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Button
+              variant="outline"
               className="inline-flex items-center px-4 py-2 rounded-md bg-navy border border-slate/30 hover:border-accent transition-colors text-slate-light"
+              asChild
             >
-              <FileText size={18} className="mr-2" />
-              View Presentation
-            </a>
+              <a
+                href={project.presentationLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FileText size={18} className="mr-2" />
+                View Presentation
+              </a>
+            </Button>
           )}
         </div>
       </div>
