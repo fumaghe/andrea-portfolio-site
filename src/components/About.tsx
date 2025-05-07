@@ -67,7 +67,7 @@ const About = () => {
             {/* Profile image on top */}
             <div className="relative z-10 w-full h-full">
               <img
-                src="public/Profile.jpeg"
+                src={`${import.meta.env.BASE_URL}Profile.jpeg`}
                 alt="Andrea Fumagalli"
                 className="rounded object-cover w-full h-full"
               />
