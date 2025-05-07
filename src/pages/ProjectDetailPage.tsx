@@ -49,7 +49,7 @@ const ProjectDetailPage: React.FC = () => {
         
         <div className="mb-10">
           <img
-            src={project.image}
+            src={`${import.meta.env.BASE_URL}${project.image}`}
             alt={project.title}
             className="w-full rounded-lg mb-6 object-cover h-64 lg:h-80"
           />
@@ -76,20 +76,22 @@ const ProjectDetailPage: React.FC = () => {
         </div>
         
         <div className="flex flex-wrap justify-center gap-6">
-          <Button
-            variant="outline"
-            className="inline-flex items-center px-4 py-2 rounded-md bg-navy border border-slate/30 hover:border-accent transition-colors text-slate-light"
-            asChild
-          >
-            <a
-              href={project.githubLink}
-              target="_blank"
-              rel="noopener noreferrer"
+          {project.githubLink && (
+            <Button
+              variant="outline"
+              className="inline-flex items-center px-4 py-2 rounded-md bg-navy border border-slate/30 hover:border-accent transition-colors text-slate-light"
+              asChild
             >
-              <Github size={18} className="mr-2" />
-              View Source
-            </a>
-          </Button>
+              <a
+                href={project.githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github size={18} className="mr-2" />
+                View Source
+              </a>
+            </Button>
+          )}
           
           {project.externalLink && (
             <Button
@@ -115,7 +117,7 @@ const ProjectDetailPage: React.FC = () => {
               asChild
             >
               <a
-                href={project.presentationLink}
+                href={`${import.meta.env.BASE_URL}${project.presentationLink}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >

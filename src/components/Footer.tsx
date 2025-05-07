@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="flex flex-col items-center justify-center">
           <div className="flex items-center space-x-5 mb-6 lg:hidden">
             <a 
-              href="https://github.com" 
+              href="https://github.com/fumaghe" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-slate hover:text-accent transition-colors"
@@ -17,7 +17,7 @@ const Footer = () => {
               <Github size={20} />
             </a>
             <a 
-              href="https://linkedin.com" 
+              href="https://linkedin.com/in/andreafumagalli01" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-slate hover:text-accent transition-colors"
@@ -31,9 +31,6 @@ const Footer = () => {
             All rights reserved to Andrea Fumagalli
           </p>
           
-          <p className="text-center text-slate text-xs mt-2">
-            Built with React & Tailwind CSS
-          </p>
         </div>
       </div>
     </footer>

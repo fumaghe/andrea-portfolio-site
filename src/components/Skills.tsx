@@ -20,18 +20,27 @@ const technicalSkills: { category: string; skills: { name: string; desc: string 
   {
     category: 'Frameworks',
     skills: [
-      { name: 'Django', desc: 'Python web framework' },
-      { name: 'Flask', desc: 'Lightweight Python web framework' },
-      { name: 'Node.js', desc: 'JavaScript runtime' },
+      { name: 'Flask', desc: 'Lightweight Python web framework for APIs' },
+      { name: 'Streamlit', desc: 'Fast frontend for data science apps' },
+      { name: 'React', desc: 'Frontend library for building UIs' },
+      { name: 'Next.js', desc: 'React framework for SSR and routing' },
+      { name: 'Node.js', desc: 'JavaScript runtime for backend services' },
+      { name: 'Keras', desc: 'High-level API for building neural networks' },
+      { name: 'scikit-learn', desc: 'Machine learning in Python' },
+      { name: 'TensorFlow', desc: 'Deep learning framework for modeling' },
     ],
   },
   {
     category: 'Data Tools',
     skills: [
       { name: 'Pandas', desc: 'Data manipulation library' },
-      { name: 'Polars', desc: 'Lightning‑fast DataFrame library' },
       { name: 'Spark', desc: 'Distributed data processing engine' },
       { name: 'BigTable', desc: 'Google NoSQL DB' },
+      { name: 'Seaborn', desc: 'Statistical plotting library' },
+      { name: 'Matplotlib', desc: 'Low-level plotting for Python' },
+      { name: 'Polars', desc: 'Fast DataFrame engine for big data' },
+      { name: 'NumPy', desc: 'Numerical computing with arrays' },
+      { name: 'SQLite', desc: 'Lightweight embedded database' },
     ],
   },
   {
@@ -71,30 +80,71 @@ const technicalSkills: { category: string; skills: { name: string; desc: string 
       { name: 'Azure', desc: 'Microsoft cloud services' },
     ],
   },
+  {
+    category: 'Other & Soft Skills',
+    skills: [
+      { name: 'Web Scraping', desc: 'Data extraction via BeautifulSoup and Selenium' },
+      { name: 'NLP', desc: 'Text mining and sentiment analysis' },
+      { name: 'OCR', desc: 'Text extraction from scanned documents' },
+      { name: 'UX Design', desc: 'Designing intuitive user interfaces' },
+      { name: 'Agile / Kanban', desc: 'Team workflows and project planning' },
+    ],
+  },
+  
 ];
 
 const softSkillBlocks = [
   {
     icon: MessageCircle,
     label: 'Communication',
-    skills: ['Communication', 'Active Listening', 'Teamwork', 'Emotional Intelligence'],
+    skills: [
+      'Communication',
+      'Active Listening',
+      'Teamwork',
+      'Emotional Intelligence',
+      'Client Interaction',
+      'Technical Writing',
+      'Public Speaking',
+      'Cross-functional Collaboration'
+    ],
   },
   {
     icon: Brain,
     label: 'Thinking & Analysis',
-    skills: ['Analytical Thinking', 'Creativity', 'Decision‑Making', 'Adaptability'],
+    skills: [
+      'Analytical Thinking',
+      'Creativity',
+      'Decision‑Making',
+      'Adaptability',
+      'Problem Solving',
+      'Critical Thinking',
+      'Curiosity',
+      'Data-Driven Mindset',
+      'Scenario Planning'
+    ],
   },
   {
     icon: Users,
-    label: 'Leadership',
-    skills: ['Leadership', 'Conflict Resolution', 'Initiative', 'Time Management'],
+    label: 'Leadership & Execution',
+    skills: [
+      'Leadership',
+      'Conflict Resolution',
+      'Initiative',
+      'Time Management',
+      'Project Planning',
+      'Agile Workflows',
+      'Accountability',
+      'Stakeholder Management',
+      'Vision Building'
+    ],
   },
 ];
+
 
 const languages = [
   { language: 'Italian', level: 'Native', width: '100%' },
   { language: 'English', level: 'C1', width: '80%' },
-  { language: 'Spanish', level: 'B1', width: '50%' },
+  { language: 'Spanish', level: 'B1', width: '60%' },
 ];
 
 // --------------------------------------------------

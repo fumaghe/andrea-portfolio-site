@@ -10,7 +10,7 @@ interface Project {
   title: string;
   description: string;
   technologies: string[];
-  githubLink: string;
+  githubLink?: string;
   externalLink?: string;
   image: string;
 }
@@ -90,7 +90,7 @@ const ProjectCard: React.FC<
     >
       {/* Background */}
       <img
-        src={image}
+        src={`${import.meta.env.BASE_URL}${image}`}
         alt={title}
         className="absolute inset-0 w-full h-full object-cover object-center" // no scale on hover; tilt handles movement
         draggable={false}
@@ -203,12 +203,12 @@ const Projects: React.FC = () => {
       </div>
       
       {/* View All Projects link */}
-      <div className="mt-16 text-center animate-on-scroll">
+      <div className="mt-16 text-start animate-on-scroll">
         <Link 
           to="/projects" 
           className="inline-flex items-center font-mono text-accent hover:opacity-80 transition-opacity text-lg group"
         >
-          <span>Scopri tutti i progetti</span>
+          <span>All projects</span>
           <span className="inline-block ml-1 transform group-hover:translate-x-1 transition-transform">→</span>
         </Link>
       </div>

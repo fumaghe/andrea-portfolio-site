@@ -91,11 +91,6 @@ const Sidebar = () => {
         </ul>
       </nav>
 
-      {/* ---------- SOCIAL ---------- */}
-      <div className="mt-auto flex space-x-6 justify-start w-full">
-        <Social href="https://github.com"   aria="GitHub"><Github  size={28} /></Social>
-        <Social href="https://linkedin.com" aria="LinkedIn"><Linkedin size={28} /></Social>
-      </div>
     </aside>
   );
 };

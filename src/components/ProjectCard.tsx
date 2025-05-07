@@ -34,7 +34,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       {/* Project Image - Fixed width and height for consistency */}
       <div className="w-full md:w-72 h-60 flex-shrink-0">
         <img 
-          src={image} 
+          src={`${import.meta.env.BASE_URL}${image}`}
           alt={title}
           className="w-full h-full object-cover"
         />
@@ -64,15 +64,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           </ul>
           
           <div className="flex items-center gap-4 mt-3">
-            <a
-              href={githubLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub Repository"
-              className="text-slate-light hover:text-accent transition-colors"
-            >
-              <Github size={20} />
-            </a>
+            {githubLink && (
+              <a
+                href={githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub Repository"
+                className="text-slate-light hover:text-accent transition-colors"
+              >
+                <Github size={20} />
+              </a>
+            )}
             
             {externalLink && (
               <a
@@ -88,7 +90,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             
             {presentationLink && (
               <a
-                href={presentationLink}
+                href={`${import.meta.env.BASE_URL}${presentationLink}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Presentation"

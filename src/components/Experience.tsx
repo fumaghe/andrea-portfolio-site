@@ -19,53 +19,55 @@ const experiences: ExperienceItem[] = [
   {
     title: 'Data Scientist & Web Developer',
     company: 'STORViX AB',
-    companyLink: '#',
-    date: 'JAN 2025 — JUN 2025',
+    companyLink: 'https://storvix.eu/',
+    date: 'JAN 2025 — JUN 2025',
     description: [
-      'Developed data visualization dashboards to monitor system performance and user behavior',
-      'Implemented machine learning algorithms for predictive analytics',
-      'Contributed to full‑stack development of internal tools',
-      'Gained international experience through the Erasmus+ program',
+      'Led the development of AVALoN, a modern analytics platform central to system monitoring and actionable insights',
+      'Architected and implemented core AVALoN features for real-time data visualization and predictive analytics',
+      'Demonstrated AVALoN’s strategic impact in optimizing resource allocation and improving user engagement',
+      'Contributed to full-stack development of internal tools supporting AVALoN’s deployment and maintenance',
+      'Gained international experience through the Erasmus+ program'
     ],
-    technologies: ['Python', 'SQL', 'JavaScript', 'React', 'TensorFlow'],
+    technologies: ['Python', 'SQL', 'JavaScript', 'React', 'AI', 'Typescript', 'NoSQL', 'Team working', 'Big Data'],
   },
   {
     title: 'Real Estate Agent',
     company: 'Tecnocasa',
     companyLink: 'https://www.tecnocasa.it',
-    date: 'MAR 2023 — AUG 2023',
+    date: 'MAR 2023 — AUG 2023',
     description: [
-      'Managed client portfolios and property negotiations',
-      'Analyzed market trends and property valuations',
-      'Created data‑driven reports to inform investment decisions',
-      'Developed strong communication and negotiation skills',
+      'Balanced a full-time real estate role with university studies, demonstrating excellent time management',
+      'Managed client portfolios and property negotiations while completing academic exams',
+      'Started collecting and analyzing market data to support forecasts and property evaluations',
+      'Refined communication and negotiation skills in fast-paced and dynamic environments'
     ],
-    technologies: ['Market Analysis', 'Excel', 'CRM Software'],
-  },
-  {
-    title: 'Waiter & Bartender',
-    company: 'The Fertha',
-    date: '2018 — 2019',
-    description: [
-      'Provided excellent customer service in a fast‑paced environment',
-      'Managed inventory and order processing systems',
-      'Developed strong interpersonal and teamwork skills',
-      'Improved English language proficiency while working abroad',
-    ],
-    technologies: ['Customer Service', 'Time Management', 'English'],
+    technologies: ['Market Analysis', 'Excel', 'Market Predictions', 'Negotiation', 'Client Management', 'Python'],
   },
   {
     title: 'Innovation Program Participant',
     company: 'Cisco Systems Italy',
     companyLink: 'https://www.cisco.com',
-    date: '2018 — 2019',
+    date: '2018 & 2019',
     description: [
-      'Participated in workshops focused on networking technologies and innovation',
-      'Collaborated with team members on technical projects',
-      'Gained exposure to enterprise‑level technology solutions',
-      'Developed foundational understanding of IT infrastructure',
+      'Selected for an exclusive innovation program at Cisco Systems Italy',
+      'Attended advanced workshops on networking technologies and enterprise solutions',
+      'Collaborated with multidisciplinary teams on high-impact technical projects',
+      'Gained a solid foundation in enterprise-scale IT infrastructure'
     ],
-    technologies: ['Networking', 'IT Infrastructure', 'Innovation'],
+    technologies: ['Networking', 'IT Infrastructure', 'Innovation', 'Startup', 'Teamwork', 'Problem Solving', 'Python', 'Project Management'],
+  },
+  {
+    title: 'Waiter & Bartender',
+    company: 'The Fertha',
+    companyLink: 'https://g.co/kgs/5SKEhHF',
+    date: '2018 & 2019',
+    description: [
+      'Collaborated closely with a diverse team to deliver exceptional customer service in a fast-paced environment',
+      'Worked part-time while studying, developing strong time management and multitasking skills',
+      'Managed inventory and order processing systems to ensure smooth operations',
+      'Improved English proficiency by engaging with international guests'
+    ],
+    technologies: ['Customer Service', 'Time Management', 'English'],
   },
 ];
 

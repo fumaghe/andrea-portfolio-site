@@ -43,7 +43,7 @@ const App = () => (
       <Toaster />
       <Sonner />
 
-      <BrowserRouter basename="/andrea-portfolio-site">
+      <BrowserRouter basename="/andrea-portfolio-site/">
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/projects" element={<ProjectsPage />} />
